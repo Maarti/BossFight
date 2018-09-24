@@ -23,6 +23,10 @@ public class PlayerAttack : MonoBehaviour {
             anim.SetTrigger("attackSword01");
         if (CrossPlatformInputManager.GetButtonDown("AttackProjectile"))
             ThrowProjectile();
+        if (CrossPlatformInputManager.GetButtonDown("Shield"))
+            Shield(true);
+        else if (CrossPlatformInputManager.GetButtonUp("Shield"))
+            Shield(false);
     }
 
     void ThrowProjectile() {
@@ -32,6 +36,10 @@ public class PlayerAttack : MonoBehaviour {
                 projectile.GetComponent<AbstractProjectile>().speed = fireballSpeed;
                 break;
         }
+    }
+
+    void Shield(bool activate) {
+        anim.SetBool("isShielding", activate);
     }
 
 }

@@ -74,7 +74,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public void OnDrag(PointerEventData data)
 		{
 			Vector3 newPos = Vector3.zero;
-
+            Debug.Log("data="+data.position);
 			if (m_UseX)
 			{
 				int delta = (int)(data.position.x - m_StartPos.x);
@@ -88,6 +88,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 				delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
 				newPos.y = delta;
 			}
+            Debug.Log("newPos="+newPos);
 			transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
 			UpdateVirtualAxes(transform.position);
 		}
