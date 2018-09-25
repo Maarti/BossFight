@@ -18,6 +18,11 @@ public abstract class AbstractProjectile : MonoBehaviour {
         if (other.tag == "Boss") {
             other.GetComponent<IAttackable>().Defend(damage);
         }
+        else if (other.tag == "ReflectorShield") {
+            this.gameObject.layer = LayerMask.NameToLayer("Friendly");
+            transform.rotation = other.transform.rotation;
+            return;
+        }
         if (destroyOnCollision)
             GameObject.Destroy(this.gameObject);
     }
