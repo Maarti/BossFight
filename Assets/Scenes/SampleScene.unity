@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 408375820}
   - component: {fileID: 408375822}
   - component: {fileID: 408375823}
+  - component: {fileID: 408375824}
   m_Layer: 11
   m_Name: Boss
   m_TagString: Boss
@@ -740,6 +741,7 @@ MonoBehaviour:
   throwProjectileBhvr: {fileID: 408375823}
   salveBhvr: {fileID: 408375822}
   timeBetweenSalves: 10
+  fallingObjectBhvr: {fileID: 408375824}
 --- !u!95 &408375821
 Animator:
   serializedVersion: 3
@@ -793,6 +795,22 @@ MonoBehaviour:
   projectileType: 0
   projectileSpeed: 25
   projectileSize: {x: 3, y: 3, z: 3}
+  projectileLayerName: Enemy
+--- !u!114 &408375824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 408375817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ca97b08637a50488b53a9ccab9ce4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stalactitePrefab: {fileID: 1061753145344778, guid: 907fbe58c7d06684a995d3a03e1a653d,
+    type: 2}
+  timeBeforeFalling: 1.5
+  projectileSize: {x: 1, y: 1, z: 1}
   projectileLayerName: Enemy
 --- !u!1 &441282540
 GameObject:
@@ -1173,7 +1191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &726475970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1798,7 +1816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1018339964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2688,7 +2706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1355519674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3459,7 +3477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2073319736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3932,7 +3950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2132524471
 RectTransform:
   m_ObjectHideFlags: 0

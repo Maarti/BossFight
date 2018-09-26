@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ThrowProjectileBhvr))]
 public class ThrowProjectileBhvr : MonoBehaviour {
 
     [Header("Prefabs")]

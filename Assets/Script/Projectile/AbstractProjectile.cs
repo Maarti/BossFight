@@ -10,7 +10,7 @@ public abstract class AbstractProjectile : MonoBehaviour {
     public bool destroyOnCollision = true;
 
     void Awake() {
-        GameObject.Destroy(this.gameObject, 5f);
+        Destroy(this.gameObject, 5f);
     }
 
     protected void OnTriggerEnter(Collider other) {
@@ -24,7 +24,7 @@ public abstract class AbstractProjectile : MonoBehaviour {
             return;
         }
         if (destroyOnCollision)
-            GameObject.Destroy(this.gameObject);
+            Destroy(this.gameObject);
     }
 
     void FixedUpdate() {

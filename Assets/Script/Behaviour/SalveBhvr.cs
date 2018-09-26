@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ThrowProjectileBhvr))]
 public class SalveBhvr : MonoBehaviour {
 
     [Header("Projectile settings")]
