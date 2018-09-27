@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ProjectileType { Fireball, Axe }
 public abstract class AbstractProjectile : MonoBehaviour {
 
     public float damage = 3f;
@@ -15,7 +14,7 @@ public abstract class AbstractProjectile : MonoBehaviour {
 
     protected void OnTriggerEnter(Collider other) {
         Debug.Log(this.name + " trigger with " + other.name);
-        if (other.tag == "Boss") {
+        if (other.tag == "Boss" || other.tag == "Player") {
             other.GetComponent<IAttackable>().Defend(damage);
         }
         else if (other.tag == "ReflectorShield") {

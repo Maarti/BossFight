@@ -407,9 +407,10 @@ GameObject:
   - component: {fileID: 159150948}
   - component: {fileID: 159150947}
   - component: {fileID: 159150950}
-  - component: {fileID: 159150949}
   - component: {fileID: 159150951}
+  - component: {fileID: 159150949}
   - component: {fileID: 159150952}
+  - component: {fileID: 159150953}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -513,6 +514,17 @@ MonoBehaviour:
   fireballPrefab: {fileID: 1718113823792854, guid: b63b5431486baed479e87f5cefac3677,
     type: 2}
   fireballSpeed: 20
+--- !u!114 &159150953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159150946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a9e798814117b43a41fb7a27e450f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &726475970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1816,7 +1828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1018339964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2706,7 +2718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1355519674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3477,7 +3489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2073319736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3950,7 +3962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2132524471
 RectTransform:
   m_ObjectHideFlags: 0

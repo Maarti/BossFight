@@ -1,0 +1,1 @@
+﻿public enum ProjectileType { Fireball, Axe }

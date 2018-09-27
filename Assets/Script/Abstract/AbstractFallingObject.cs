@@ -20,9 +20,9 @@ public abstract class AbstractFallingObject : MonoBehaviour {
 
     protected void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            // other.GetComponent<IAttackable>().Defend(damage);
+            other.GetComponent<IAttackable>().Defend(damage);
         }
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 
     void FixedUpdate() {
