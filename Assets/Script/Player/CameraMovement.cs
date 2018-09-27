@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour {
             center = roomCenter.transform.position;
     }
 
-    void OnDrawGizmos() {
+    void OnDrawGizmosSelected() {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(center, centerDistMax);
     }

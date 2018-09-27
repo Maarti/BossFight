@@ -9,9 +9,10 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     [SerializeField] ThrowProjectileBhvr throwProjectileBhvr;
     [Header("Salve settings")]
     [SerializeField] SalveBhvr salveBhvr;
-    [SerializeField] float timeBetweenSalves = 15f;
     [Header("Falling object settings")]
     [SerializeField] FallingObjectBhvr fallingObjectBhvr;
+    [Header("Collapsing settings")]
+    [SerializeField] CollapsingBhvr collapsingBhvr;
 
     int phase = 0;
     Animator anim;
@@ -27,7 +28,7 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     void Update() {
         switch (phase) {
             case 1:
-                phase++;                
+                phase++;
                 StartCoroutine(PhaseProjectile());
                 break;
             case 3:
@@ -39,6 +40,10 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
                 StartCoroutine(PhaseFallingObject());
                 break;
             case 7:
+                StartCoroutine(PhaseCollapsing());
+                phase++;
+                break;
+            case 9:
                 phase = 1;
                 break;
         }
@@ -63,7 +68,7 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     }
 
     IEnumerator PhaseSalve() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         salveBhvr.StartBehaviour();
         yield return new WaitForSeconds(6f);
         phase++;
@@ -77,6 +82,13 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
             count++;
             yield return new WaitForSeconds(1f);
         }
+        phase++;
+    }
+
+    IEnumerator PhaseCollapsing() {
+        yield return new WaitForSeconds(3f);
+        collapsingBhvr.StartBehaviour();
+        yield return new WaitForSeconds(8f);
         phase++;
     }
 
