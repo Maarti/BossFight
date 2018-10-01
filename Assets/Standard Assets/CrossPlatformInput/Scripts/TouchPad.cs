@@ -44,12 +44,12 @@ namespace UnityStandardAssets.CrossPlatformInput
 		Vector2 m_PreviousTouchPos; // swipe style control touch
 
 
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
     private Vector3 m_Center;
     private Image m_Image;
-#else
-		Vector3 m_PreviousMouse;
-#endif
+//#else
+	//	Vector3 m_PreviousMouse;
+//#endif
 
 		void OnEnable()
 		{
@@ -58,10 +58,10 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         void Start()
         {
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
             m_Image = GetComponent<Image>();
             m_Center = m_Image.transform.position;
-#endif
+//#endif
         }
 
 		void CreateVirtualAxes()
@@ -97,10 +97,10 @@ namespace UnityStandardAssets.CrossPlatformInput
 			}
 		}
 
-
 		public void OnPointerDown(PointerEventData data)
 		{
 			m_Dragging = true;
+            
 			m_Id = data.pointerId;
 #if !UNITY_EDITOR
         if (controlStyle != ControlStyle.Absolute )
@@ -114,26 +114,47 @@ namespace UnityStandardAssets.CrossPlatformInput
 			{
 				return;
 			}
-			if (Input.touchCount >= m_Id + 1 && m_Id != -1)
-			{
-#if !UNITY_EDITOR
-
-            if (controlStyle == ControlStyle.Swipe)
-            {
-                m_Center = m_PreviousTouchPos;
-                m_PreviousTouchPos = Input.touches[m_Id].position;
+            int touchId = m_Id;
+           if (Input.touchCount < m_Id + 1 && m_Id != -1) {
+                touchId = Input.touchCount - 1;
             }
-            Vector2 pointerDelta = new Vector2(Input.touches[m_Id].position.x - m_Center.x , Input.touches[m_Id].position.y - m_Center.y).normalized;
-            pointerDelta.x *= Xsensitivity;
-            pointerDelta.y *= Ysensitivity;
-#else
-				Vector2 pointerDelta;
-				pointerDelta.x = Input.mousePosition.x - m_PreviousMouse.x;
-				pointerDelta.y = Input.mousePosition.y - m_PreviousMouse.y;
-				m_PreviousMouse = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
-#endif
-				UpdateVirtualAxes(new Vector3(pointerDelta.x, pointerDelta.y, 0));
-			}
+                Debug.Log("touchid=" + touchId + " count=" + Input.touchCount);
+            if (Input.touchCount >= touchId + 1 && m_Id != -1) {
+                
+            
+
+
+                //#if UNITY_EDITOR
+                //              Vector2 pointerDelta = new Vector2(Input.mousePosition.x - m_Center.x, Input.mousePosition.y - m_Center.y).normalized;
+                //#else
+
+                Vector2 pointerDelta = new Vector2(Input.touches[touchId].position.x - m_Center.x, Input.touches[touchId].position.y - m_Center.y).normalized;
+                //#endif
+
+                pointerDelta.x *= Xsensitivity;
+                pointerDelta.y *= Ysensitivity;
+
+
+
+                /*
+                #if !UNITY_EDITOR
+
+                            if (controlStyle == ControlStyle.Swipe)
+                            {
+                                m_Center = m_PreviousTouchPos;
+                                m_PreviousTouchPos = Input.touches[m_Id].position;
+                            }
+                            Vector2 pointerDelta = new Vector2(Input.touches[m_Id].position.x - m_Center.x , Input.touches[m_Id].position.y - m_Center.y).normalized;
+                            pointerDelta.x *= Xsensitivity;
+                            pointerDelta.y *= Ysensitivity;
+                #else
+                                Vector2 pointerDelta;
+                                pointerDelta.x = Input.mousePosition.x - m_PreviousMouse.x;
+                                pointerDelta.y = Input.mousePosition.y - m_PreviousMouse.y;
+                                m_PreviousMouse = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+                #endif*/
+                UpdateVirtualAxes(new Vector3(pointerDelta.x, pointerDelta.y, 0));
+            }
 		}
 
 
