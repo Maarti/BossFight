@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerAttack : MonoBehaviour {
 
+    [Header("Projectiles settings")]
     [SerializeField] ProjectileType projectileType = ProjectileType.Fireball;
     [SerializeField] Transform projectilePosition;
     [SerializeField] GameObject fireballPrefab;

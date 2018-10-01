@@ -9,12 +9,14 @@ public abstract class AbstractFallingObject : MonoBehaviour {
     public float timeBeforeFalling = 1f;
     public Transform groundMark;
     public SpriteRenderer markSprite;
+    [SerializeField] MeshRenderer mesh;
     Vector3 startPos;
     float startTime;
 
     void Awake() {
         startPos = transform.position;
         startTime = Time.time;
+        mesh.enabled = false;
         Destroy(this.gameObject, timeBeforeFalling + timeToReachMark + 2);
     }
 
@@ -30,6 +32,8 @@ public abstract class AbstractFallingObject : MonoBehaviour {
             transform.position = Vector3.Lerp(startPos, groundMark.position, (Time.time - (startTime + timeBeforeFalling)) / timeToReachMark);
             if (markSprite.enabled)
                 markSprite.enabled = false;
+            if (!mesh.enabled)
+                mesh.enabled = true;
         }
     }
 }

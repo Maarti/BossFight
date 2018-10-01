@@ -40,10 +40,11 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
                 StartCoroutine(PhaseFallingObject());
                 break;
             case 7:
-                StartCoroutine(PhaseCollapsing());
                 phase++;
+                StartCoroutine(PhaseFallingObject());
+                StartCoroutine(PhaseCollapsing());
                 break;
-            case 9:
+            case 10:
                 phase = 1;
                 break;
         }

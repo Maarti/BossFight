@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] float speed = 7f;
-    [SerializeField] float dashSpeed = 20f;
-    [SerializeField] float dashDuration = .2f;
+    [Header("Focus settings")]
     [SerializeField] [Tooltip("Enemies in this range will be focus autmatically")] float distanceMaxToAutoFocus = 25f;
     [SerializeField] Transform target;
+    [Header("Behaviours ettings")]
+    [SerializeField] AbstractDash dashBhvr;
     Transform cam;
     Vector3 camForward;
     Vector3 move;
     Rigidbody rb;
     Animator anim;
-    bool isDashing = false;
     List<GameObject> focusables = new List<GameObject>();
     float lastTimeFocusSearch = -10;
 
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (CrossPlatformInputManager.GetButtonDown("Dash"))
-            StartCoroutine(Dash());
+            dashBhvr.StartBehaviour();
     }
 
     // Fixed update is called in sync with physics
@@ -48,10 +49,10 @@ public class PlayerMovement : MonoBehaviour {
         camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
         move = v * camForward + h * cam.right;
         if (move.magnitude > 1f) move.Normalize();
-        if (isDashing)
-            move *= dashSpeed * Time.deltaTime;
-        else
-            move *= speed * Time.deltaTime;
+
+        // Dash speed bonus
+        float dashSpeedMultiplier = (dashBhvr.isDashing) ? dashBhvr.speedMultiplier : 1f;
+        move *= speed * dashSpeedMultiplier * Time.deltaTime;
         rb.MovePosition(transform.position + move);
     }
 
@@ -69,12 +70,11 @@ public class PlayerMovement : MonoBehaviour {
         rb.rotation = newRotation;
     }
 
-    IEnumerator Dash() {
-        isDashing = true;
-        yield return new WaitForSeconds(dashDuration);
-        isDashing = false;
-        yield return null;
-    }
+    /*bool CanDash() {
+        return (lastDash + dashCooldown <= Time.time);
+    }*/
+
+
 
     void FindAllFocusableObjects() {
         if (Time.time - lastTimeFocusSearch > 1f) {
@@ -100,5 +100,7 @@ public class PlayerMovement : MonoBehaviour {
         else
             target = null;
     }
+
+
 
 }
