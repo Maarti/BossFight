@@ -70,12 +70,6 @@ public class PlayerMovement : MonoBehaviour {
         rb.rotation = newRotation;
     }
 
-    /*bool CanDash() {
-        return (lastDash + dashCooldown <= Time.time);
-    }*/
-
-
-
     void FindAllFocusableObjects() {
         if (Time.time - lastTimeFocusSearch > 1f) {
             focusables = new List<GameObject>(GameObject.FindGameObjectsWithTag("Boss"));

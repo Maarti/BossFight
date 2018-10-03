@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerStatus))]
 public class PlayerAttack : MonoBehaviour {
 
     [Header("Projectiles settings")]
     [SerializeField] ProjectileType projectileType = ProjectileType.Fireball;
     [SerializeField] Transform projectilePosition;
     [SerializeField] GameObject fireballPrefab;
-    [SerializeField] float fireballSpeed = 20;
+    [SerializeField] float fireballSpeed = 20f;
+    [SerializeField] [Tooltip("Energy cost of the projectile")] float fireballCost = 20f;
+    PlayerStatus playerStatus;
 
     Animator anim;
 
     // Use this for initialization
     void Start() {
         anim = GetComponent<Animator>();
+        playerStatus = GetComponent<PlayerStatus>();
+        playerStatus.projectileCost = fireballCost;
     }
 
     // Update is called once per frame
@@ -33,9 +39,16 @@ public class PlayerAttack : MonoBehaviour {
     void ThrowProjectile() {
         switch (projectileType) {
             case ProjectileType.Fireball:
-                GameObject projectile = Instantiate(fireballPrefab, projectilePosition.position, transform.rotation);
-                projectile.GetComponent<AbstractProjectile>().speed = fireballSpeed;
+                ThrowFireball();
                 break;
+        }
+    }
+
+    private void ThrowFireball() {
+        if (playerStatus.HasEnoughEnergy(fireballCost)) {
+            GameObject projectile = Instantiate(fireballPrefab, projectilePosition.position, transform.rotation);
+            projectile.GetComponent<AbstractProjectile>().speed = fireballSpeed;
+            playerStatus.Energy -= fireballCost;
         }
     }
 
