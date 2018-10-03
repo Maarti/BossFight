@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerStatus : MonoBehaviour, IAttackable {
@@ -11,9 +12,13 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
     [SerializeField] float energyMax = 100f;
     [SerializeField] Slider manaBar;
     [SerializeField] Image projectileCooldownImg;
-    [HideInInspector] public float projectileCost;
+    [HideInInspector] public float projectileCost = -1;
+    [Header("Life Settings")]
+    [SerializeField] float lifeMax = 100f;
+    [SerializeField] Slider lifeBar;
     float _energy = 100;
-    Animator anim;    
+    float _life = 100;
+    Animator anim;
 
     public float Energy {
         get { return _energy; }
@@ -24,20 +29,32 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
         }
     }
 
+    public float Life {
+        get { return _life; }
+        set {
+            _life = Mathf.Clamp(value, 0, lifeMax);
+            UpdateLifeBar();
+            if (_life <= 0)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
     void Awake() {
         anim = GetComponent<Animator>();
     }
 
     void Start() {
+        InitLifeBar();
         InitManaBar();
-        Energy = Energy; // To call the "set" accessor
+        Life = lifeMax;
+        Energy = energyMax; // To call the "set" accessor
         StartCoroutine(EnergyRefill());
     }
 
     IEnumerator EnergyRefill() {
         WaitForSeconds wait = new WaitForSeconds(.5f);
         while (true) {
-            Energy += energyPerSecond/2f;
+            Energy += energyPerSecond / 2f;
             UpdateManaBar();
             yield return wait;
         }
@@ -49,14 +66,23 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
 
     void InitManaBar() {
         manaBar.minValue = 0;
-        manaBar.maxValue = 100;
+        manaBar.maxValue = energyMax;
+    }
+
+    void UpdateLifeBar() {
+        lifeBar.value = Life;
+    }
+
+    void InitLifeBar() {
+        lifeBar.minValue = 0;
+        lifeBar.maxValue = lifeMax;
     }
 
     void UpdateProjectileCooldown() {
-        if (HasEnoughEnergy(projectileCost))
-            projectileCooldownImg.enabled = false;
-        else
+        if (projectileCost > 0 && !HasEnoughEnergy(projectileCost))
             projectileCooldownImg.enabled = true;
+        else
+            projectileCooldownImg.enabled = false;
     }
 
     public bool HasEnoughEnergy(float cost) {
@@ -64,6 +90,7 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
     }
 
     public void Defend(float damage) {
+        Life -= damage;
         anim.SetTrigger("hit");
     }
 }
