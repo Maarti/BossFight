@@ -16,6 +16,7 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
     [Header("Life Settings")]
     [SerializeField] float lifeMax = 100f;
     [SerializeField] Slider lifeBar;
+
     float _energy = 100;
     float _life = 100;
     Animator anim;

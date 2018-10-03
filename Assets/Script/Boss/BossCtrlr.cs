@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class BossCtrlr : MonoBehaviour, IAttackable {
 
+    [Header("Life Settings")]
+    [SerializeField] float lifeMax = 50f;
+    [SerializeField] Slider lifeBar;
     [Header("Projectile settings")]
     [SerializeField] ThrowProjectileBhvr throwProjectileBhvr;
     [Header("Salve settings")]
@@ -13,15 +18,28 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     [SerializeField] FallingObjectBhvr fallingObjectBhvr;
     [Header("Collapsing settings")]
     [SerializeField] CollapsingBhvr collapsingBhvr;
-
+    
     int phase = 0;
     Animator anim;
     float lastSalve = 0f;
     Transform player;
+    float _life = 50;
+
+    public float Life {
+        get { return _life; }
+        set {
+            _life = Mathf.Clamp(value, 0, lifeMax);
+            UpdateLifeBar();
+            if (_life <= 0)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
+        InitLifeBar();
+        Life = lifeMax;
         phase++;
     }
 
@@ -51,8 +69,17 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     }
 
     public void Defend(float damage) {
-        Debug.Log(this.name + " defends " + damage + " dmg");
+        Life -= damage;
         anim.SetTrigger("hit");
+    }
+
+    void InitLifeBar() {
+        lifeBar.minValue = 0;
+        lifeBar.maxValue = lifeMax;
+    }
+
+    void UpdateLifeBar() {
+        lifeBar.value = Life;
     }
 
     IEnumerator PhaseProjectile() {
