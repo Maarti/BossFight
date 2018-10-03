@@ -5,22 +5,26 @@ using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PlayerStatus))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerAttack : MonoBehaviour {
 
     [Header("Projectiles settings")]
     [SerializeField] ProjectileType projectileType = ProjectileType.Fireball;
     [SerializeField] Transform projectilePosition;
+    [Header("Fireball settings")]
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] float fireballSpeed = 20f;
-    [SerializeField] [Tooltip("Energy cost of the projectile")] float fireballCost = 20f;
-    PlayerStatus playerStatus;
+    [SerializeField] [Tooltip("Energy cost of the fireball")] float fireballCost = 20f;
 
+    PlayerStatus playerStatus;
+    PlayerMovement playerMovement;
     Animator anim;
 
     // Use this for initialization
     void Start() {
         anim = GetComponent<Animator>();
         playerStatus = GetComponent<PlayerStatus>();
+        playerMovement = GetComponent<PlayerMovement>();
         playerStatus.projectileCost = fireballCost;
     }
 
@@ -54,6 +58,7 @@ public class PlayerAttack : MonoBehaviour {
 
     void Shield(bool activate) {
         anim.SetBool("isShielding", activate);
+        playerMovement.isShielding = activate;
     }
 
 }

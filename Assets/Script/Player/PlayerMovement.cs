@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] Transform target;
     [Header("Behaviours ettings")]
     [SerializeField] AbstractDash dashBhvr;
+    [HideInInspector] public bool isShielding = false;
     Transform cam;
     Vector3 camForward;
     Vector3 move;
@@ -53,12 +54,13 @@ public class PlayerMovement : MonoBehaviour {
         // Dash speed bonus
         float dashSpeedMultiplier = (dashBhvr.isDashing) ? dashBhvr.speedMultiplier : 1f;
         move *= speed * dashSpeedMultiplier * Time.deltaTime;
-        rb.MovePosition(transform.position + move);
+        if (!isShielding)
+            rb.MovePosition(transform.position + move);
     }
 
     void Turning() {
         Quaternion newRotation;
-        if (target) {
+        if (target && !isShielding) {
             Vector3 direction = target.position - transform.position;
             newRotation = Quaternion.LookRotation(direction);
         }
