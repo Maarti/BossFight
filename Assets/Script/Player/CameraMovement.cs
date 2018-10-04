@@ -7,9 +7,19 @@ public class CameraMovement : MonoBehaviour {
     [SerializeField] Vector3 offset = new Vector3(0f, 15f, -18f);
     [SerializeField] [Tooltip("Camera will move if the player exceeds this distance from the center")] float centerDistMax = 12f;
     [SerializeField] float smoothing = 2f;
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS)
+    [Header("PC settings")]
+    [SerializeField] float pcOrthographicSize = 14f;
+    [SerializeField] float pcCenterDistMax = 24f;
+#endif
     Transform target;
 
     void Start() {
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS)
+        GetComponent<Camera>().orthographicSize = pcOrthographicSize;
+        centerDistMax = pcCenterDistMax;
+#endif
+
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (!roomCenter)
             Debug.LogWarning("Assign a RoomCenter transform to " + name);
