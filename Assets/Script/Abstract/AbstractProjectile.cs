@@ -15,7 +15,7 @@ public abstract class AbstractProjectile : MonoBehaviour {
     protected void OnTriggerEnter(Collider other) {
         Debug.Log(this.name + " trigger with " + other.name);
         if (other.tag == "Boss" || other.tag == "Player") {
-            other.GetComponent<IAttackable>().Defend(damage);
+            other.GetComponent<IAttackable>().Defend(new Attack(AttackType.Projectile, damage));
         }
         else if (other.tag == "ReflectorShield") {
             this.gameObject.layer = LayerMask.NameToLayer("Friendly");

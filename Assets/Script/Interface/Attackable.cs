@@ -1,3 +1,3 @@
 ﻿public interface IAttackable {
-    void Defend(float damage);
+    void Defend(Attack attack);
 }

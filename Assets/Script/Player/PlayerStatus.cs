@@ -52,6 +52,11 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
         StartCoroutine(EnergyRefill());
     }
 
+    public void CollidWithEnergyBall(float amountPercentage) {
+        float amountRaw = (amountPercentage / 100f) * energyMax;
+        Energy += amountRaw;
+    }
+
     IEnumerator EnergyRefill() {
         WaitForSeconds wait = new WaitForSeconds(.5f);
         while (true) {
@@ -90,8 +95,8 @@ public class PlayerStatus : MonoBehaviour, IAttackable {
         return cost <= Energy;
     }
 
-    public void Defend(float damage) {
-        Life -= damage;
+    public void Defend(Attack attack) {
+        Life -= attack.damage;
         anim.SetTrigger("hit");
     }
 }

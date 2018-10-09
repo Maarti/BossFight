@@ -8,7 +8,7 @@ public class AttackCtrlr : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Boss") {
-            other.GetComponent<IAttackable>().Defend(damage);
+            other.GetComponent<IAttackable>().Defend(new Attack(AttackType.Melee, damage));
         }
     }
 

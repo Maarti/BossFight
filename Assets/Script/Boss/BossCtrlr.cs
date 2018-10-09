@@ -18,6 +18,8 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
     [SerializeField] FallingObjectBhvr fallingObjectBhvr;
     [Header("Collapsing settings")]
     [SerializeField] CollapsingBhvr collapsingBhvr;
+    [Header("Energy Drop settings")]
+    [SerializeField] EnergyDropBhvr energyDropBhvr;
     
     int phase = 0;
     Animator anim;
@@ -68,8 +70,9 @@ public class BossCtrlr : MonoBehaviour, IAttackable {
         }
     }
 
-    public void Defend(float damage) {
-        Life -= damage;
+    public void Defend(Attack attack) {
+        Life -= attack.damage;
+        energyDropBhvr.StartBehaviour(attack);
         anim.SetTrigger("hit");
     }
 

@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 408375822}
   - component: {fileID: 408375824}
   - component: {fileID: 408375825}
+  - component: {fileID: 408375826}
   m_Layer: 11
   m_Name: Boss
   m_TagString: Boss
@@ -1096,6 +1097,7 @@ MonoBehaviour:
   salveBhvr: {fileID: 408375822}
   fallingObjectBhvr: {fileID: 408375824}
   collapsingBhvr: {fileID: 408375825}
+  energyDropBhvr: {fileID: 408375826}
 --- !u!95 &408375821
 Animator:
   serializedVersion: 3
@@ -1183,6 +1185,26 @@ MonoBehaviour:
   radius: 24
   nbObjects: 30
   timeBetweenObjects: 0.2
+--- !u!114 &408375826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 408375817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5321981111440a04fb7c3938bea144a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 00000000
+  energyBallPrefab: {fileID: 1473845408072280, guid: 12cfb479edc3037458992c2e24d041f1,
+    type: 2}
+  minDropNumber: 0
+  maxDropNumber: 3
+  minUpForce: 20
+  maxUpForce: 70
+  minForwardForce: 10
+  maxForwardForce: 40
 --- !u!1 &441282540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1468,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 6967
+    m_Bits: 15159
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -22,7 +22,7 @@ public abstract class AbstractFallingObject : MonoBehaviour {
 
     protected void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            other.GetComponent<IAttackable>().Defend(damage);
+            other.GetComponent<IAttackable>().Defend(new Attack(AttackType.FallingObject, damage));
         }
         // Destroy(this.gameObject);
     }
